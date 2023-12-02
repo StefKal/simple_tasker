@@ -19,7 +19,6 @@ export const AuthProvider = ({ children }) => {
   )
 
   let loginUser = (data) => {
-    // sleep for 2 seconds
     setAuthTokens(data)
     const user = jwtDecode(data.access)
     setUser(user)
