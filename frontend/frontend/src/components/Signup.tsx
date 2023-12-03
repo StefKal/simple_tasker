@@ -24,15 +24,23 @@ export default function SignupComponent() {
               name="password"
               crossOrigin="anonymous"
               size="lg"
-              value="string"
               label="Password"
               required
               type="password"
             />
           </div>
+
           <Button className="mt-6" fullWidth type="submit">
             Submit
           </Button>
+          <Typography
+            color="gray"
+            className="mt-4 text-center font-gotham-light">
+            Already have an account?{' '}
+            <a href="/login" className="font-medium text-gray-900">
+              Log In
+            </a>
+          </Typography>
         </Form>
       </Card>
     </div>
