@@ -36,12 +36,10 @@ export default function UserProfile(): JSX.Element {
     <div className="flex flex-col gap-10 p-10 items-start bg-gray-100 w-full h-full">
       <h1 className="text-4xl">Hello user</h1>
 
-      <div className="w-full h-full">
-        <TableWithStripedRows
-          tasks={userData.tasks}
-          onStatusChange={handleStatusChange}
-        />
-      </div>
+      <TableWithStripedRows
+        tasks={userData.tasks}
+        onStatusChange={handleStatusChange}
+      />
       <div className=" flex gap-10">
         <Button
           variant="outlined"
