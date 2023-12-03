@@ -10,7 +10,7 @@ export default function GuestIndex() {
   }
   return (
     <>
-      <div className="flex flex-col items-center justify-center h-fit p-10 rounded-lg shadow-md bg-gray-100 dark:bg-gray-900 gap-10">
+      <div className="flex flex-col items-center justify-center p-10 rounded-lg shadow-md bg-gray-100 dark:bg-gray-900 gap-10 h-full">
         <h1 className="text-4xl font-bold mb-4">Welcome to my app</h1>
         <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
           Please select an action

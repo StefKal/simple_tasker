@@ -43,3 +43,5 @@ There is a separate version for the API docs at ```http://localhost:8000/docs/``
 6. Loading states for table when clicking and waiting for complete/favorite
 7. Iron down the UI, fix the sizing/paddings to be all the same
 8. Pay more attention to Mobile View
+9. FE testing
+10. FE Storybook
