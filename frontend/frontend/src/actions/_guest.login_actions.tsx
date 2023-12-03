@@ -17,7 +17,7 @@ export const loginAction = async ({ request }) => {
   if (!response.ok) {
     return { error: response.statusText }
   }
-  return await { success: response.json() }
+  return { success: await response.json() }
 }
 
 export const refreshAction = async (token) => {
