@@ -37,7 +37,6 @@ export const makeApiRequest = async ({
     if (data && method !== 'GET') {
       requestOptions.body = JSON.stringify(data);
     }
-    console.log(requestUrl, requestOptions);
     try {
       return await fetch(requestUrl, requestOptions);
     } catch (error) {

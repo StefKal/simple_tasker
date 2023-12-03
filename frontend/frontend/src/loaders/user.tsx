@@ -19,7 +19,6 @@ export const UserLoader = async ({ params }) => {
   }
 
   const data = await response.json()
-  console.log('inloader', data)
 
   return data
 }
