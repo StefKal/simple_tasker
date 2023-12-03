@@ -9,7 +9,6 @@ export const ProtectedRoute = () => {
     // If not authenticated, redirect to the login page
     return <Navigate to="/login" state={{ from: location }} replace />
   }
-  console.log('AUTHENTICATED')
 
 
   // If authenticated, render the child routes

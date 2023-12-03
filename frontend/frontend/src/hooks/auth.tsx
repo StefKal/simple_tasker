@@ -1,24 +1,29 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from 'react'
 import { jwtDecode } from 'jwt-decode'
+import { AuthContextType, AuthTokens } from '../types/auth'
 
 const AuthContext = createContext(null)
 
 export default AuthContext
 
-export const AuthProvider = ({ children }) => {
-  let [authTokens, setAuthTokens] = useState(() =>
-    localStorage.getItem('authTokens')
-      ? JSON.parse(localStorage.getItem('authTokens'))
-      : null
-  )
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  let [authTokens, setAuthTokens] = useState<AuthTokens | null>(() => {
+    const item = localStorage.getItem('authTokens')
+    return item ? JSON.parse(item) : null
+  })
 
-  let [user, setUser] = useState(() =>
-    localStorage.getItem('authTokens')
-      ? jwtDecode(localStorage.getItem('authTokens'))
-      : null
-  )
+  let [user, setUser] = useState(() => {
+    const item = localStorage.getItem('authTokens')
+    return item ? jwtDecode(item) : null
+  })
 
-  let loginUser = (data) => {
+  let loginUser = (data: AuthTokens) => {
     setAuthTokens(data)
     const user = jwtDecode(data.access)
     setUser(user)
@@ -31,7 +36,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('authTokens')
   }
 
-  let contextData = {
+  let contextData: AuthContextType = {
     user: user,
     authTokens: authTokens,
     setAuthTokens: setAuthTokens,
