@@ -11,8 +11,13 @@ export const loginAction = async ({ request }) => {
     url: 'http://localhost:8000/auth/token/',
     data: submission,
   })
-
-  return await response.json()
+  if (response.status == 401) {
+    return response.json()
+  }
+  if (!response.ok) {
+    return { error: response.statusText }
+  }
+  return await { success: response.json() }
 }
 
 export const refreshAction = async (token) => {

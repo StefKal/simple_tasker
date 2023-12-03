@@ -13,10 +13,12 @@ export function ErrorComponent() {
             variant="h3"
             color="red"
             className="inline-flex items-center">
-            'error.title'
+            Error
           </Typography>
         </div>
-        <Typography>'error.description'</Typography>
+        <Typography>
+          Something went wrong, sorry for the inconvenience
+        </Typography>
       </CardBody>
     </Card>
   )

@@ -7,6 +7,7 @@ export default function Signup() {
   const actionData = useActionData()
 
   let content
+  console.log(actionData)
   if (actionData) {
     if (actionData.success) {
       content = <ThankYou />
