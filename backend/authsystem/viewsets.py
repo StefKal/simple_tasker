@@ -1,6 +1,6 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework import viewsets, status
-from rest_framework.exceptions import Throttled
+# from rest_framework.exceptions import Throttled
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -10,7 +10,7 @@ from django.db.models import Prefetch
 from .models import User, Task
 from .permissions import AuthPermissions, TaskPermissions
 from .serializers.user_serializers import UserSerializer, TaskSerializer
-from .throttles import CustomAnonThrottle
+# from .throttles import CustomAnonThrottle
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -52,12 +52,24 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+    @extend_schema(
+        request=None,
+        responses={status.HTTP_200_OK: TaskSerializer(many=True)},
+        methods=['GET'],
+        description='User details endpoint.',
+    )
     @action(detail=True, methods=['get'])
     def get_tasks(self, request, pk=None):
         user = self.get_object()
         serializer = self.serializer_class(user)
         return Response(serializer.data['tasks'], status=status.HTTP_200_OK)
 
+    @extend_schema(
+        request=None,
+        responses={status.HTTP_201_CREATED: {"detail": "Tasks populated successfully"}},
+        methods=['POST'],
+        description='Populate tasks endpoint.',
+    )
     @action(detail=True, methods=['post'])
     def populate_tasks(self, request, pk=None):
         user = self.get_object()
