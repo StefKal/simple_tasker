@@ -9,3 +9,4 @@ class TaskFactory(factory.django.DjangoModelFactory):
     title = factory.Faker('sentence')
     completed = factory.Faker('boolean')
     user = factory.SubFactory(factory.django.DjangoModelFactory, model=User)
+    is_favorite = factory.Faker('boolean')

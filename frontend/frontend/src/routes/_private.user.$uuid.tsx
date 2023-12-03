@@ -1,81 +1,57 @@
-import { Button, Card, Typography } from '@material-tailwind/react'
-import { useLoaderData, useParams } from 'react-router-dom'
+import { Button } from '@material-tailwind/react'
+import { useLoaderData, useRevalidator } from 'react-router-dom'
 import { useAuth } from '../hooks/auth'
+import {
+  addTasks,
+  completeTask,
+  updateFavorite,
+} from '../actions/_private.tasks'
+import { TableWithStripedRows } from '../components/Table'
 
 export default function UserProfile() {
   const userData = useLoaderData()
   const auth = useAuth()
+  const revalidator = useRevalidator()
   console.log('IN PROFILE', userData)
 
+  const handleStatusChange = async (taskId, statusType, value) => {
+    if (statusType === 'favorite') {
+      await updateFavorite(taskId, value)
+    } else if (statusType === 'completed') {
+      await completeTask(taskId, value)
+    }
+    revalidator.revalidate()
+  }
+
+  const handleAddTasks = async (uuid) => {
+    await addTasks(uuid)
+    revalidator.revalidate()
+  }
+
   return (
-    <div className="flex flex-col gap-10 items-start bg-gray-100">
+    <div className="flex flex-col gap-10 p-10 items-start bg-gray-100 w-full h-full">
       <h1 className="text-4xl">Hello user</h1>
 
-      <div className="w-full p-10">
-        <TableWithStripedRows tasks={userData.tasks} />
+      <div className="w-full h-full">
+        <TableWithStripedRows
+          tasks={userData.tasks}
+          onStatusChange={handleStatusChange}
+        />
       </div>
-      <Button
-        variant="outlined"
-        onClick={auth.logoutUser}
-        className="font-gotham-light px-5 py-2 normal-case text-sm text-text border-text">
-        Log out
-      </Button>
+      <div className=" flex gap-10">
+        <Button
+          variant="outlined"
+          onClick={auth.logoutUser}
+          className="font-gotham-light px-5 py-2 normal-case text-sm text-text border-text">
+          Log Out
+        </Button>
+        <Button
+          variant="outlined"
+          onClick={() => handleAddTasks(userData.uuid)}
+          className="font-gotham-light px-5 py-2 normal-case text-sm text-text border-text">
+          Add tasks
+        </Button>
+      </div>
     </div>
-  )
-}
-export function TableWithStripedRows({ tasks }) {
-  const TABLE_HEAD = ['Task ID', 'Title', 'Completed']
-
-  return (
-    <Card className="h-96 w-full rounded-r-lg overflow-y-auto">
-      <table className="text-left">
-        <thead>
-          <tr>
-            {TABLE_HEAD.map((head) => (
-              <th
-                key={head}
-                className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                <Typography
-                  variant="small"
-                  color="blue-gray"
-                  className="font-normal leading-none opacity-70">
-                  {head}
-                </Typography>
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {tasks.map(({ id, title, completed }) => (
-            <tr key={id} className="even:bg-blue-gray-50/50">
-              <td className="p-4">
-                <Typography
-                  variant="small"
-                  color="blue-gray"
-                  className="font-normal">
-                  {id}
-                </Typography>
-              </td>
-              <td className="p-4">
-                <Typography
-                  variant="small"
-                  color="blue-gray"
-                  className="font-normal">
-                  {title}
-                </Typography>
-              </td>
-              <td className="p-4">
-                <Typography
-                  variant="small"
-                  color="blue-gray"
-                  className="font-normal">
-                  {completed ? 'Yes' : 'No'}
-                </Typography>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </Card>
   )
 }

@@ -8,8 +8,8 @@ from django.db.models import Prefetch
 
 
 from .models import User, Task
-from .permissions import AuthPermissions
-from .serializers.user_serializers import UserSerializer
+from .permissions import AuthPermissions, TaskPermissions
+from .serializers.user_serializers import UserSerializer, TaskSerializer
 from .throttles import CustomAnonThrottle
 
 
@@ -68,3 +68,15 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
         return Response({"detail": "Tasks populated successfully"}, status=status.HTTP_201_CREATED)
+
+
+class TaskViewSet(viewsets.ModelViewSet):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+    http_method_names = ('get', 'patch')
+    permission_classes = [TaskPermissions]
+
+    def get_queryset(self):
+        # Override get_queryset to return only the request's user object
+        user = self.request.user
+        return Task.objects.filter(user=user)

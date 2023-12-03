@@ -11,3 +11,12 @@ class AuthPermissions(BasePermission):
         elif view.action == 'create':
             return True
         return False
+
+
+class TaskPermissions(BasePermission):
+    def has_permission(self, request, view):
+        if view.action in ('list', 'retrieve'):
+            return True
+        elif view.action in ('update', 'partial_update'):
+            return request.user.has_perm('authsystem.add_task')
+        return False

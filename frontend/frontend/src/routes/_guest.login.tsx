@@ -44,7 +44,6 @@ export default function Login() {
                 <Input
                   name="email"
                   crossOrigin="anonymous"
-                  value="user@example.com"
                   size="lg"
                   label="email"
                   required
@@ -54,7 +53,6 @@ export default function Login() {
                   crossOrigin="anonymous"
                   type="password"
                   size="lg"
-                  value="string"
                   label="password"
                   name="password"
                   title="Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number and one special character."
