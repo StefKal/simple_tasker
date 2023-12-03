@@ -6,14 +6,12 @@ export const signupAction = async ({ request }) => {
     email: data.get('email'),
     password: data.get('password'),
   }
-  console.log('submitting', submission)
   try {
     const response = await makeApiRequest({
       method: request.method,
       url: 'http://localhost:8000/users/',
       data: submission,
     })
-    console.log('response', response)
     if (!response.ok) {
       return { error: response.statusText }
     }

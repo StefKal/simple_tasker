@@ -7,14 +7,18 @@ import {
   updateFavorite,
 } from '../actions/_private.tasks'
 import { TableWithStripedRows } from '../components/Table'
+import { UserData } from '../types/user'
 
-export default function UserProfile() {
-  const userData = useLoaderData()
+export default function UserProfile(): JSX.Element {
+  const userData = useLoaderData<UserData>()
   const auth = useAuth()
   const revalidator = useRevalidator()
-  console.log('IN PROFILE', userData)
 
-  const handleStatusChange = async (taskId, statusType, value) => {
+  const handleStatusChange = async (
+    taskId: string,
+    statusType: 'favorite' | 'completed',
+    value: boolean
+  ) => {
     if (statusType === 'favorite') {
       await updateFavorite(taskId, value)
     } else if (statusType === 'completed') {
@@ -23,7 +27,7 @@ export default function UserProfile() {
     revalidator.revalidate()
   }
 
-  const handleAddTasks = async (uuid) => {
+  const handleAddTasks = async (uuid: string) => {
     await addTasks(uuid)
     revalidator.revalidate()
   }
@@ -32,12 +36,10 @@ export default function UserProfile() {
     <div className="flex flex-col gap-10 p-10 items-start bg-gray-100 w-full h-full">
       <h1 className="text-4xl">Hello user</h1>
 
-      <div className="w-full h-full">
-        <TableWithStripedRows
-          tasks={userData.tasks}
-          onStatusChange={handleStatusChange}
-        />
-      </div>
+      <TableWithStripedRows
+        tasks={userData.tasks}
+        onStatusChange={handleStatusChange}
+      />
       <div className=" flex gap-10">
         <Button
           variant="outlined"

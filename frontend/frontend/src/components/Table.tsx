@@ -4,7 +4,7 @@ export function TableWithStripedRows({ tasks, onStatusChange }) {
   const TABLE_HEAD = ['Task ID', 'Title', 'Favorite', '']
 
   return (
-    <Card className="h-auto w-full rounded-r-lg overflow-y-auto">
+    <Card className="h-[80%] w-full rounded-r-lg overflow-y-auto">
       <table className="text-left table-fixed">
         <thead>
           <tr>
