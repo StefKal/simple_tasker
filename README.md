@@ -45,3 +45,4 @@ There is a separate version for the API docs at ```http://localhost:8000/docs/``
 8. Pay more attention to Mobile View
 9. FE testing
 10. FE Storybook
+11. Abstract out API endpoints to env file
