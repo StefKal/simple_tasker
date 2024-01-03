@@ -14,8 +14,8 @@ RUN apt-get update
 # Create a directory for the app user
 RUN addgroup --system appgroup && \
     adduser --system appuser --ingroup appgroup && \
-    mkdir -p /home/valuedriven/backend && \
-    chown -R appuser:appgroup /home/valuedriven
+    mkdir -p /home/company/backend && \
+    chown -R appuser:appgroup /home/company
 
 # Upgrade pip
 RUN python -m pip install --upgrade pip
@@ -34,10 +34,10 @@ RUN pip install --no-deps -r requirements.txt
 USER appuser
 
 # Set the working directory for the app user
-WORKDIR /home/valuedriven/backend
+WORKDIR /home/company/backend
 
 # Copy the project
-COPY --chown=appuser:appgroup . /home/valuedriven/backend
+COPY --chown=appuser:appgroup . /home/company/backend
 
 # Run entrypoint.sh
-CMD ["bash", "/home/valuedriven/backend/entrypoint.sh"]
+CMD ["bash", "/home/company/backend/entrypoint.sh"]

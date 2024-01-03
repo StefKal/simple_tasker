@@ -2,18 +2,18 @@ from django.core import mail
 
 
 class Mailer:
-    base_domain = 'pickvaluedriven.com'
+    base_domain = 'company.com'
     from_email = 'no-reply@' + base_domain
     templates = {
         'user_activation': {
-            'subject': 'valuedriven Account Activation',
-            'message': 'Welcome to valuedriven. '
+            'subject': 'company Account Activation',
+            'message': 'Welcome to company. '
                        'Please follow the link to activate your account',
             'url': 'users/{user_uuid}/activate/{token}',
         },
         'password_recovery': {
-            'subject': 'valuedriven Password Reset',
-            'message': 'Please follow the link to reset your valuedriven user password',
+            'subject': 'company Password Reset',
+            'message': 'Please follow the link to reset your company user password',
             'url': 'users/{user_uuid}/reset/{token}',
         },
         # Add new templates
@@ -52,7 +52,7 @@ class Mailer:
         else:
             template = 'user_activation'
 
-        self.send_mail(template, ["contact@valuedriven.com"],
+        self.send_mail(template, ["contact@company.com"],
                        user_uuid=str(user.uuid),
                        token=token,
                        domain=domain)

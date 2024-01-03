@@ -9,7 +9,7 @@ services:
       dockerfile: Dockerfile 
     command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --listen 0.0.0.0:5678 manage.py runserver 0.0.0.0:8000"]
     volumes:
-      - ./backend:/home/valuedriven/backend
+      - ./backend:/home/company/backend
     ports:
       - "8000:8000"
       - "5678:5678"
@@ -24,7 +24,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     volumes:
-      - ./frontend:/home/valuedriven/frontend
+      - ./frontend:/home/company/frontend
     ports:
       - "5173:5173"
     restart: always
